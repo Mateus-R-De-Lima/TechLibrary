@@ -15,15 +15,15 @@ namespace TechLibrary.Api.Controllers
         [ProducesResponseType(typeof(ResponseRegisteredUserJson), StatusCodes.Status201Created)]
         [ProducesResponseType(typeof(ResponseErroMessagesJson), StatusCodes.Status400BadRequest)]
 
-        public IActionResult Create(RequestUserJson request)
+        public IActionResult Register(RequestUserJson request)
         {
             try
             {
                 var useCase = new RegisterUserUseCase();
 
-              var response=  useCase.Execute(request);
+                var response = useCase.Execute(request);
 
-                return Created(string.Empty,response);
+                return Created(string.Empty, response);
             }
             catch (TechLibraryExeption ex)
             {
@@ -38,7 +38,7 @@ namespace TechLibrary.Api.Controllers
             {
                 return StatusCode(StatusCodes.Status500InternalServerError, new ResponseErroMessagesJson
                 {
-                        Errors = ["Erro desconhecido"]
+                    Errors = ["Erro desconhecido"]
                 });
             }
         }
