@@ -15,7 +15,7 @@ namespace TechLibrary.Api.UseCases.Users
 
             When(request => string.IsNullOrEmpty(request.Password) == false, () =>
             {
-                RuleFor(request => request.Password.Length).GreaterThanOrEqualTo(6).WithMessage("A senha é obrigatória.");
+                RuleFor(request => request.Password.Length).GreaterThanOrEqualTo(6).WithMessage("A senha não pode ser menor que 6 caracteres.");
             });
         }
 
