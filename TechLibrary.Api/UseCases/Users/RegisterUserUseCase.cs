@@ -2,6 +2,7 @@
 using TechLibrary.Api.Domain;
 using TechLibrary.Api.Infraestructure.DataAccess;
 using TechLibrary.Api.Infraestructure.Security.Cryptography;
+using TechLibrary.Api.Infraestructure.Security.Tokens.Acess;
 using TechLibrary.Communication.Requests;
 using TechLibrary.Communication.Responses;
 using TechLibrary.Execption;
@@ -29,10 +30,12 @@ namespace TechLibrary.Api.UseCases.Users
             dbContext.Users.Add(entity);
             dbContext.SaveChanges();
 
+            var tokenGenerator = new JwtTokenGenerator();
+
             return new ResponseRegisteredUserJson
             {
                 Name = entity.Name,
-                AccessToken = "Token"
+                AccessToken = tokenGenerator.Generate(entity)
             };
         }
 
@@ -40,7 +43,7 @@ namespace TechLibrary.Api.UseCases.Users
         {
             var validator = new RegisterUserValidator();
             var result = validator.Validate(request);
-            var emailExist = dbContext.Users.Any(user => user.Equals(request.Email));
+            var emailExist = dbContext.Users.Any(user => user.Email.Equals(request.Email));
             if (emailExist)
             {
                 result.Errors.Add(new ValidationFailure("Email", "E-mail já registrado na plataforma."));
