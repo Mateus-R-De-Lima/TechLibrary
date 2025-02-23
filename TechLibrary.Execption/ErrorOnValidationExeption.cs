@@ -5,7 +5,7 @@ namespace TechLibrary.Execption
     public class ErrorOnValidationExeption : TechLibraryExeption
     {
         private readonly List<string> _errors;
-        public ErrorOnValidationExeption(List<string> errorMessages)
+        public ErrorOnValidationExeption(List<string> errorMessages) :base(string.Empty)
         {
             _errors = errorMessages;
         }

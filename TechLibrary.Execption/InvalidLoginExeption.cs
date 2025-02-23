@@ -9,9 +9,13 @@ namespace TechLibrary.Execption
 {
     public class InvalidLoginExeption : TechLibraryExeption
     {
+        public InvalidLoginExeption():base("Email e/ou senha invalidos.")
+        {
+            
+        }
         public override List<string> GetErrorMessages()
         {
-            return ["Email e/ou senha invalidos."];
+            return [Message];
         }
 
         public override HttpStatusCode GetStatusCode() => HttpStatusCode.Unauthorized;
